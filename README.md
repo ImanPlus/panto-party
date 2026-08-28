@@ -4,6 +4,12 @@ A multiplayer **Pantomime / Charades game** built with **React, TypeScript, and 
 
 Panto Party is a browser-based party game where players form teams, take turns acting out words, and compete to achieve the highest score. The application manages the complete game flow — from configuring teams and players to timed gameplay and final performance results.
 
+## 🎮 Live Demo
+
+### [🚀 Play Panto Party](https://panto-party.vercel.app/)
+
+Try the live version of the game directly in your browser — no installation required.
+
 ---
 
 ## ✨ Features
@@ -26,7 +32,7 @@ Panto Party is a browser-based party game where players form teams, take turns a
 - 🎉 Celebration effects
 - 🔊 Sound effects
 - 📝 Form validation
-- 📱 Responsive design for different screen sizes
+- 📱 Responsive design
 - 🧩 Reusable UI components
 - 💾 Centralized game state management with Zustand
 
@@ -126,7 +132,7 @@ Players can dynamically:
 - Add players
 - Remove players
 
-The setup form uses React Hook Form for form state management and Zod for validation.
+The setup form uses **React Hook Form** for form state management and **Zod** for validation.
 
 ---
 
@@ -138,7 +144,7 @@ The game timer is integrated with the centralized game state and controls the tr
 
 When the timer reaches the end of a turn, the game automatically moves forward according to the current round and team state.
 
-This prevents the game from continuing indefinitely and ensures that the configured number of rounds is respected.
+This ensures that the game follows the configured number of rounds.
 
 ---
 
@@ -150,12 +156,12 @@ Each word has a unique identifier and text value.
 
 The game keeps track of played words so that words are not repeatedly selected while unused words are still available.
 
-When the available words have been exhausted, the word state can be reset to allow the game to continue.
+When the available words have been exhausted, the word state can be reset to allow gameplay to continue.
 
 Players can either mark the current word as:
 
 - **Correct** — the team earns a point and gameplay continues with another word.
-- **Skip** — the word is skipped and the game continues.
+- **Skip** — the word is skipped and gameplay continues.
 
 This allows multiple words to be played during a single timed turn.
 
@@ -163,7 +169,7 @@ This allows multiple words to be played during a single timed turn.
 
 ## 👥 Player Rotation
 
-The game also keeps track of which players have already taken a turn.
+The game keeps track of which players have already taken a turn.
 
 Players are not selected repeatedly before the remaining players have had an opportunity to play.
 
@@ -189,15 +195,13 @@ If multiple teams share the highest score, the result can be represented as a ti
 
 The Game Over section provides more than just the final score.
 
-Performance information is presented for both:
-
-### Teams
+### Team Performance
 
 Team performance can be visualized and compared using charts.
 
-### Players
+### Player Performance
 
-Individual player performance can also be displayed, allowing the results screen to provide more detailed information about how players contributed to the game.
+Individual player performance can also be displayed, providing more detailed information about how players contributed to the game.
 
 Charts are implemented using **Recharts**.
 
@@ -223,16 +227,17 @@ Review the final scores and performance results after the game has finished.
 
 ![Game Over](./public/screenshots/game-over.png)
 
-> **Adding the screenshots:**  
-> Create a `screenshots` folder inside `public` and add the following files:
->
-> ```text
-> public/
-> └── screenshots/
->     ├── game-setup.png
->     ├── game.png
->     └── game-over.png
-> ```
+### Adding Screenshots
+
+Create a `screenshots` folder inside `public` and add the following files:
+
+```text
+public/
+└── screenshots/
+    ├── game-setup.png
+    ├── game.png
+    └── game-over.png
+```
 
 ---
 
@@ -240,7 +245,7 @@ Review the final scores and performance results after the game has finished.
 
 ### Core
 
-- **React 19** — Building the user interface
+- **React 19** — UI development
 - **TypeScript** — Static typing and type safety
 - **React Router** — Routing and application structure
 - **Vite** — Development server and build tooling
@@ -296,13 +301,13 @@ Game Play
 └── Game over state
 ```
 
-Centralizing these values makes it possible for different components to react to the same game state without having to pass gameplay information through multiple layers of props.
+Centralizing these values allows different components to react to the same game state without passing gameplay information through multiple layers of props.
 
 ---
 
 ## 🔄 Game State Transitions
 
-The store is also responsible for gameplay transitions such as:
+The store is responsible for gameplay transitions such as:
 
 - Starting the game
 - Selecting the next player
@@ -348,7 +353,7 @@ Game-specific functionality is organized under:
 app/components/game/
 ```
 
-This area contains components responsible for functionality such as:
+These components are responsible for functionality such as:
 
 - Word cards
 - Game actions
@@ -366,7 +371,7 @@ Reusable interface components are organized under:
 app/components/ui/
 ```
 
-This keeps generic interface elements separate from game-specific logic.
+This keeps generic interface elements separate from game-specific functionality.
 
 ---
 
@@ -398,7 +403,7 @@ The application includes:
 - Reusable buttons and form controls
 - Visual feedback for game actions
 - Animated interactions
-- Progress and timer feedback
+- Timer feedback
 - Performance visualizations
 - Celebration effects
 - Sound effects
@@ -498,7 +503,7 @@ panto-party/
 
 ### `app/routes`
 
-Contains the main application screens and route-level components:
+Contains the main application screens:
 
 - Home
 - Game Setup
@@ -607,13 +612,19 @@ Runs TypeScript type checking.
 
 ## 🧱 Build & Deployment
 
-The repository also includes a `Dockerfile`, allowing the application to be containerized.
+The project is deployed as a live web application and is available through Vercel.
 
-The current README intentionally documents the application without modifying or making assumptions about the existing Docker configuration.
+### Live Deployment
+
+**[🚀 Open Panto Party](https://panto-party.vercel.app/)**
+
+The repository and source code are available on GitHub:
+
+**[📦 View Source Code](https://github.com/ImanPlus/panto-party)**
 
 ---
 
-## 🔮 Future Improvements
+## 🔮 Possible Future Improvements
 
 Possible directions for extending the project include:
 
