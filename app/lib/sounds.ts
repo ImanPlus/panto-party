@@ -12,7 +12,9 @@ export const playSound = (sound: string, duration?: number) => {
   const audio = new Audio(sound);
 
   audio.currentTime = 0;
-  audio.play();
+  audio.play().catch(() => {
+    // Audio playback was blocked by the browser.
+  });
 
   if (duration) {
     setTimeout(() => {
