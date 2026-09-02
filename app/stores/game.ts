@@ -340,7 +340,7 @@ export const useGameStore = create<GameState>()(
         }
 
         set((state) => ({
-          gameHistory: [...state.gameHistory, historyItem]
+          gameHistory: [historyItem, ...state.gameHistory]
         }))
       }
 

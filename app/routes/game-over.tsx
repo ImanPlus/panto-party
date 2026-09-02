@@ -13,6 +13,7 @@ import PlayerPerformance from "~/components/game/PlayerPerformance";
 import CorrectVsSkipped from "~/components/game/CorrectVsSkipped";
 import GameActions from "~/components/game/GameActions";
 import { chartColors } from "~/lib/chartColors";
+import GameHistory from "../components/game/GameHistory";
 
 export function meta() {
   return [{ title: createTitle("Game Over") }];
@@ -148,6 +149,8 @@ export default function GameOver() {
             data={correctVsSkippedData}
             chartColors={chartColors}
           />
+          {/* Game History */}
+          <GameHistory />
         </div>
 
         {/* Buttons - Play Again/ New Game */}
