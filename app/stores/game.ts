@@ -1,12 +1,14 @@
+import { nanoid } from "nanoid";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { words } from "~/data/words";
 import { addToNumber } from "~/lib/addToNumber";
-import type { GamePlayState, GameSetupForm } from "~/types/game"
+import type { GameHistory, GamePlayState, GameSetupForm } from "~/types/game"
 
 interface GameState {
   gameSetup: GameSetupForm | null;
   gamePlay: GamePlayState;
+  gameHistory: GameHistory[];
 
   setGameSetup: (gameSetup: GameSetupForm) => void;
   initializeGame: (gameSetup: GameSetupForm) => void;
@@ -20,6 +22,7 @@ interface GameState {
   skipWord: () => void;
   playAgain: () => void;
   resetGame: () => void;
+  addGameToHistory: () => void;
 }
 
 const DEFAULT_VALUE: Pick<GameState, "gameSetup" | "gamePlay"> = {
@@ -41,10 +44,13 @@ const DEFAULT_VALUE: Pick<GameState, "gameSetup" | "gamePlay"> = {
   }
 }
 
+const DEFAULT_GAME_HISTORY: GameHistory[] = [];
+
 export const useGameStore = create<GameState>()(
   persist(
     (set, get) => ({
       ...DEFAULT_VALUE,
+      gameHistory: DEFAULT_GAME_HISTORY,
 
       setGameSetup: (gameSetup) =>
         set({ gameSetup }),
@@ -164,7 +170,7 @@ export const useGameStore = create<GameState>()(
       },
 
       endTurn: () => {
-        const { gameSetup, gamePlay } = get();
+        const { gameSetup, gamePlay, addGameToHistory } = get();
         if (!gameSetup) return;
 
         const isLastTurn =
@@ -172,6 +178,8 @@ export const useGameStore = create<GameState>()(
           gamePlay.currentTeamIndex === gameSetup.teams.length - 1;
 
         if (isLastTurn) {
+          addGameToHistory();
+
           set((state) => ({
             gamePlay: {
               ...state.gamePlay,
@@ -315,6 +323,25 @@ export const useGameStore = create<GameState>()(
 
       resetGame: () => {
         set(DEFAULT_VALUE)
+      },
+
+      addGameToHistory: () => {
+        const { gameSetup, gamePlay } = get();
+        if (!gameSetup) return;
+
+        const historyItem = {
+          id: nanoid(),
+          gameName: gameSetup.gameName,
+          teams: gameSetup?.teams.map((team) => ({
+            id: team.id,
+            name: team.name,
+            score: gamePlay.scores[team.id] ?? 0,
+          }))
+        }
+
+        set((state) => ({
+          gameHistory: [...state.gameHistory, historyItem]
+        }))
       }
 
     }),

@@ -33,6 +33,16 @@ export type GamePlayState = {
   playerScores: Record<string, number>;
 }
 
+export type GameHistory = {
+  id: Id;
+  gameName: string;
+  teams: {
+    id: Id;
+    name: string;
+    score: number;
+  }[];
+}
+
 export type Word = {
   id: string;
   text: string;
