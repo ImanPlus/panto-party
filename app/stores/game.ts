@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { words } from "~/data/words";
+import { addToNumber } from "~/lib/addToNumber";
 import type { GamePlayState, GameSetupForm } from "~/types/game"
 
 interface GameState {
@@ -209,6 +210,15 @@ export const useGameStore = create<GameState>()(
         }))
       },
 
+      toggleWord: (isWordVisible: boolean) => {
+        set((state) => ({
+          gamePlay: {
+            ...state.gamePlay,
+            isWordVisible
+          }
+        }))
+      },
+
       hideWord: () => {
         set((state) => ({
           gamePlay: {
@@ -233,12 +243,15 @@ export const useGameStore = create<GameState>()(
             ...state.gamePlay,
             scores: {
               ...state.gamePlay.scores,
-              [currentTeam.id]: (state.gamePlay.scores[currentTeam.id] ?? 0) + 1
+              [currentTeam.id]: addToNumber(state.gamePlay.scores[currentTeam.id], 1)
             },
             playerScores: {
               ...state.gamePlay.playerScores,
-              [currentPlayerId]:
-                (state.gamePlay.playerScores[currentPlayerId] ?? 0) + 1
+              [currentPlayerId]: addToNumber(
+                state.gamePlay.playerScores[currentPlayerId],
+                1
+              )
+
             }
           }
         }));
@@ -258,7 +271,8 @@ export const useGameStore = create<GameState>()(
             ...state.gamePlay,
             skippedWords: {
               ...state.gamePlay.skippedWords,
-              [currentTeam.id]: (state.gamePlay.skippedWords[currentTeam.id] ?? 0) + 1
+              [currentTeam.id]: addToNumber(
+                state.gamePlay.skippedWords[currentTeam.id], 1)
             }
           }
         }))
