@@ -227,18 +227,6 @@ Review the final scores and performance results after the game has finished.
 
 ![Game Over](./public/screenshots/game-over.png)
 
-### Adding Screenshots
-
-Create a `screenshots` folder inside `public` and add the following files:
-
-```text
-public/
-└── screenshots/
-    ├── game-setup.png
-    ├── game.png
-    └── game-over.png
-```
-
 ---
 
 ## 🛠️ Tech Stack
